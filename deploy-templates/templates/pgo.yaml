@@ -9,12 +9,12 @@ spec:
     - name: pgha1
       replicas: 1
       resources:
-        requests:
-          cpu: 50m
-          memory: 256Mi
         limits:
-          cpu: 500m
-          memory: 512Mi
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 10m
+          memory: 64Mi
       dataVolumeClaimSpec:
         accessModes:
           - "ReadWriteOnce"
@@ -24,7 +24,7 @@ spec:
   users:
     - name: admin
       databases:
-        - kubecost
+        - database
       options: "SUPERUSER"
       password:
         type: AlphaNumeric
@@ -32,13 +32,6 @@ spec:
   backups:
     pgbackrest:
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.45-0
-      resources:
-        requests:
-          cpu: 10m
-          memory: 64Mi
-        limits:
-          cpu: 100m
-          memory: 128Mi
       repos:
         - name: repo1
           volume:
